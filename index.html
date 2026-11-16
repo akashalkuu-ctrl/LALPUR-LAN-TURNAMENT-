@@ -3,530 +3,404 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LALPUR LAN | Tournament</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LALPUR LAN TOURNAMENT</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080b14;color:#f7f8fb;font-family:Arial,sans-serif}
-main{max-width:900px;margin:auto;padding:20px 14px 50px}
-h1,.gold{color:#f4c45e}
-h1{font-size:38px}
-.card{background:#111a29;border:1px solid #29374c;border-radius:15px;padding:18px;margin:16px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field{display:flex;flex-direction:column;gap:7px}
-.full{grid-column:1/-1}
-label{font-size:14px;color:#cbd5e1}
-input,select{width:100%;padding:13px;border-radius:9px;border:1px solid #35445b;background:#08111e;color:white;font-size:15px}
-button{padding:13px;border:0;border-radius:9px;font-weight:bold;font-size:14px;cursor:pointer;margin:4px}
-.mainbtn{width:100%;background:#f4c45e;color:#111;font-size:16px}
-.green{background:#38c987;color:#07150e}
-.red{background:#e45c68;color:white}
-.gray{background:#35445b;color:white}
-.note{color:#aab7c9;font-size:13px;line-height:1.7}
-.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pay div{background:#08111e;padding:14px;border-radius:10px}
-.hidden{display:none!important}
-#msg,#loginMsg,#adminMsg{white-space:pre-wrap;color:#a8e6b7}
-.team{border-top:1px solid #35445b;padding:17px 0;overflow-wrap:anywhere}
-.details{white-space:pre-wrap;line-height:1.8;color:#dce5f2;font-size:14px}
-.status{color:#f4c45e;font-weight:bold}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-@media(max-width:600px){.grid,.pay{grid-template-columns:1fr}}
+body{margin:0;background:#080e1c;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px;background:#101d35;border-bottom:2px solid #00d9ff}
+header h1{color:#00d9ff;margin:0}
+main{max-width:680px;margin:auto;padding:14px}
+.card{background:#14213a;padding:17px;border-radius:13px;margin:14px 0}
+h2,h3{color:#00d9ff}
+input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #344866;border-radius:8px;background:#0c172b;color:white}
+button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#00d9ff;color:#06101c;font-weight:bold}
+.red{background:#e53935;color:white}
+.green{background:#00c853;color:#06101c}
+.gray{background:#607d8b;color:white}
+.small{font-size:13px;color:#bdcce0;line-height:1.6}
+.hidden{display:none}
+.team{background:#20314f;padding:13px;border-radius:10px;margin:10px 0}
+.team button{background:#30496d;color:white;text-align:left}
+.status{font-weight:bold}
+.detail{padding:10px;background:#0c172b;border-radius:8px;margin:7px 0;overflow-wrap:anywhere}
 </style>
 </head>
-
 <body>
+
+<header>
+<h1>🏆 LALPUR LAN</h1>
+<p>OFFICIAL TOURNAMENT REGISTRATION</p>
+</header>
+
 <main>
 
-<div class="topbar">
-<div class="gold"><b>LALPUR LAN • ESPORTS</b></div>
-<button class="gray" id="adminToggle">ADMIN LOGIN</button>
+<section id="registerPage" class="card">
+<h2>Team Registration</h2>
+
+<div class="detail">
+Entry Fee: <strong id="publicFee">লোড হচ্ছে...</strong>
 </div>
 
-<!-- REGISTRATION PAGE -->
-<section id="registrationPage">
+<p class="small">
+bKash: 01740745730<br>
+Nagad: 01870803145
+</p>
 
-<h1>TEAM<br>REGISTRATION</h1>
-<p class="note">টুর্নামেন্টে অংশ নিতে টিমের সঠিক তথ্য এবং পেমেন্টের তথ্য জমা দাও।</p>
+<input id="team" placeholder="Team Name">
+<input id="captain" placeholder="Captain Name">
+<input id="phone" placeholder="Captain Phone Number">
 
-<form id="regForm">
+<h3>Player Information</h3>
+<input id="p1" placeholder="Player 1 Name / IGN">
+<input id="p2" placeholder="Player 2 Name / IGN">
+<input id="p3" placeholder="Player 3 Name / IGN">
+<input id="p4" placeholder="Player 4 Name / IGN">
 
-<div class="card">
-<h3>01 / টিমের তথ্য</h3>
-<div class="grid">
-<div class="field"><label>টিমের নাম *</label><input name="teamName" required maxlength="40"></div>
-<div class="field"><label>ক্যাপ্টেনের নাম *</label><input name="captainName" required></div>
-<div class="field full"><label>ক্যাপ্টেনের ফোন *</label><input name="captainPhone" required inputmode="tel"></div>
-</div>
-</div>
-
-<div class="card">
-<h3>02 / চারজন প্লেয়ার</h3>
-<div class="grid">
-<div class="field"><label>Player 1 - বাস্তব নাম *</label><input name="p1name" required></div>
-<div class="field"><label>Player 1 - IGN *</label><input name="p1ign" required></div>
-<div class="field"><label>Player 2 - বাস্তব নাম *</label><input name="p2name" required></div>
-<div class="field"><label>Player 2 - IGN *</label><input name="p2ign" required></div>
-<div class="field"><label>Player 3 - বাস্তব নাম *</label><input name="p3name" required></div>
-<div class="field"><label>Player 3 - IGN *</label><input name="p3ign" required></div>
-<div class="field"><label>Player 4 - বাস্তব নাম *</label><input name="p4name" required></div>
-<div class="field"><label>Player 4 - IGN *</label><input name="p4ign" required></div>
-</div>
-</div>
-
-<div class="card">
-<h3>03 / পেমেন্ট</h3>
-<div class="pay">
-<div><b class="gold">bKash</b><br>01740745730</div>
-<div><b class="gold">Nagad</b><br>01870803145</div>
-</div>
-<p class="note">নির্ধারিত এন্ট্রি ফি পাঠিয়ে নিচে তথ্য পূরণ করো। অ্যাডমিন নিজে টাকা যাচাই করবেন।</p>
-
-<div class="grid">
-<div class="field">
-<label>পেমেন্ট মাধ্যম *</label>
-<select name="paymentMethod" required>
-<option value="">নির্বাচন করো</option>
+<h3>Payment Information</h3>
+<select id="payment">
+<option value="">Payment Method</option>
 <option value="bKash">bKash</option>
 <option value="Nagad">Nagad</option>
 </select>
-</div>
-<div class="field"><label>পাঠানো টাকার পরিমাণ *</label><input name="amount" type="number" min="1" required></div>
-<div class="field"><label>যে নম্বর থেকে পাঠিয়েছ *</label><input name="senderPhone" required inputmode="tel"></div>
-<div class="field"><label>Transaction ID / TrxID *</label><input name="trxId" required maxlength="60"></div>
-</div>
-</div>
+<input id="sender" placeholder="Payment Sender Number">
+<input id="trx" placeholder="Transaction ID">
 
-<div class="card">
-<p class="note">জমা দেওয়ার পর Pending থাকবে। অ্যাডমিন পেমেন্ট যাচাই করে Confirm করলেই রেজিস্ট্রেশন সম্পূর্ণ হবে।</p>
-<button class="mainbtn" id="submitBtn" type="submit">SUBMIT REGISTRATION</button>
-<p id="msg"></p>
-</div>
-</form>
+<button id="submitBtn">SUBMIT REGISTRATION</button>
+<p id="message" class="small"></p>
 </section>
 
-
-<!-- ADMIN LOGIN PAGE -->
-<section id="loginPage" class="hidden">
-<div class="card">
-<h2 class="gold">ADMIN LOGIN</h2>
-<p class="note">শুধু অনুমোদিত Admin অ্যাকাউন্ট দিয়ে লগইন করো।</p>
-<input id="adminEmail" type="email" placeholder="Admin Email">
-<input id="adminPassword" type="password" placeholder="Admin Password">
-<button class="mainbtn" id="loginBtn">LOGIN</button>
-<button class="gray" id="backBtn">BACK TO REGISTRATION</button>
-<p id="loginMsg"></p>
-</div>
+<section class="card">
+<button id="loginOpen">ADMIN LOGIN</button>
 </section>
 
+<section id="loginPage" class="card hidden">
+<h2>Admin Login</h2>
+<input id="email" type="email" placeholder="Admin Email">
+<input id="password" type="password" placeholder="Admin Password">
+<button id="loginBtn">LOGIN</button>
+<button class="gray" id="closeLogin">CLOSE</button>
+<p id="loginMessage" class="small"></p>
+</section>
 
-<!-- ADMIN DASHBOARD -->
-<section id="dashboardPage" class="hidden">
+<section id="dashboard" class="hidden">
 
 <div class="card">
-<div class="topbar">
-<h2 class="gold">ADMIN DASHBOARD</h2>
-<button class="red" id="logoutBtn">LOG OUT</button>
+<h2>ADMIN DASHBOARD</h2>
+<p id="total">Total Teams: 0</p>
+<p id="pending">Pending: 0</p>
+<p id="confirmed">Confirmed: 0</p>
+<p id="rejected">Rejected: 0</p>
+<button id="refreshBtn">REFRESH</button>
+<button class="red" id="logoutBtn">LOGOUT</button>
 </div>
 
-<p class="note">পেমেন্ট যাচাই করে তারপর Confirm করবে।</p>
-
-<div class="grid">
 <div class="card">
-<p class="note">TOTAL TEAMS</p>
-<h2 id="totalCount">0</h2>
-</div>
-<div class="card">
-<p class="note">PENDING</p>
-<h2 id="pendingCount">0</h2>
-</div>
-<div class="card">
-<p class="note">CONFIRMED</p>
-<h2 id="confirmedCount">0</h2>
-</div>
-<div class="card">
-<p class="note">REJECTED</p>
-<h2 id="rejectedCount">0</h2>
-</div>
+<h2>Entry Fee Settings</h2>
+<p class="small">নতুন টিমের জন্য Entry Fee নির্ধারণ করো।</p>
+<input id="feeInput" type="number" min="1" placeholder="Entry Fee (টাকা)">
+<button id="saveFeeBtn">SAVE ENTRY FEE</button>
+<p id="feeMessage" class="small"></p>
 </div>
 
-<label>Filter Registrations</label>
+<div class="card">
+<h2>Team Management</h2>
 <select id="filter">
-<option value="All">All Registrations</option>
+<option value="All">All Teams</option>
 <option value="Pending">Pending</option>
 <option value="Confirmed">Confirmed</option>
 <option value="Rejected">Rejected</option>
 </select>
-
-<button class="gray" id="refreshBtn">REFRESH</button>
-<p id="adminMsg"></p>
-<div id="teamList"></div>
+<div id="teamList">Loading...</div>
 </div>
-</section>
 
+<div id="detailsCard" class="card hidden">
+<h2>Complete Team Details</h2>
+<div id="detailsContent"></div>
+<button class="green" id="confirmBtn">CONFIRM TEAM</button>
+<button class="red" id="rejectBtn">REJECT TEAM</button>
+<button class="gray" id="deleteBtn">DELETE TEAM</button>
+<button class="gray" id="closeDetails">CLOSE DETAILS</button>
+</div>
+
+</section>
 </main>
 
 <script type="module">
-
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-
-import {
- getAuth,
- signInWithEmailAndPassword,
- onAuthStateChanged,
- signOut
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {initializeApp} from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 import {
- getDatabase,
- ref,
- push,
- set,
- onValue,
- update,
- remove
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+ getDatabase,ref,push,set,onValue,update,remove
+} from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
+import {
+ getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut
+} from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
-/* ==================================
-   FIREBASE CONFIG
-   নিজের Firebase তথ্য বসাবে
-================================== */
-
-const firebaseConfig = {
- apiKey: "YOUR_API_KEY",
- authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
- databaseURL: "YOUR_DATABASE_URL",
- projectId: "YOUR_PROJECT_ID",
- appId: "YOUR_APP_ID"
+const firebaseConfig={
+ apiKey:"AIzaSyBI-9m_8IbxXYXiaprIfixO1ml-ZJ9mKeQ",
+ authDomain:"lalpur-lan.firebaseapp.com",
+ projectId:"lalpur-lan",
+ storageBucket:"lalpur-lan.firebasestorage.app",
+ messagingSenderId:"657980989231",
+ appId:"1:657980989231:web:1ef0d082d9b7b68ae54bda",
+ databaseURL:"https://lalpur-lan-default-rtdb.firebaseio.com"
 };
 
+const ADMIN_UID="QvFPvq0h2tX7M0pjhfMcLP6a7WF3";
 
-/* নিজের Admin UID বসাবে */
-const ADMIN_UID = "YOUR_ADMIN_UID";
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const auth=getAuth(app);
 
+const $=id=>document.getElementById(id);
+let currentTeams={};
+let selectedId=null;
+let currentFee=0;
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-const $ = id => document.getElementById(id);
-
-let registrations = {};
-let unsubscribe = null;
-
-
-/* ==================================
-   PAGE CONTROL
-================================== */
-
-function showPage(page){
-
- $("registrationPage").classList.toggle("hidden",page!=="registration");
- $("loginPage").classList.toggle("hidden",page!=="login");
- $("dashboardPage").classList.toggle("hidden",page!=="dashboard");
-
- $("adminToggle").classList.toggle("hidden",page==="dashboard");
+function message(id,text){
+ $(id).textContent=text;
 }
 
-$("adminToggle").onclick=()=>{
- showPage("login");
-};
+function show(id){
+ $(id).classList.remove("hidden");
+}
 
-$("backBtn").onclick=()=>{
- showPage("registration");
-};
+function hide(id){
+ $(id).classList.add("hidden");
+}
 
+// Load public entry fee
+onValue(ref(db,"settings/entryFee"),snap=>{
+ currentFee=Number(snap.val()||0);
+ $("publicFee").textContent=currentFee>0?
+ "৳"+currentFee:"Admin এখনো Entry Fee সেট করেননি";
+ $("feeInput").value=currentFee||"";
+});
 
-/* ==================================
-   REGISTRATION SUBMIT
-================================== */
+// Registration
+$("submitBtn").onclick=async()=>{
+ const team=$("team").value.trim();
+ const captain=$("captain").value.trim();
+ const phone=$("phone").value.trim();
+ const players=[
+ $("p1").value.trim(),
+ $("p2").value.trim(),
+ $("p3").value.trim(),
+ $("p4").value.trim()
+ ];
+ const payment=$("payment").value;
+ const sender=$("sender").value.trim();
+ const trx=$("trx").value.trim();
 
-$("regForm").addEventListener("submit",async e=>{
-
- e.preventDefault();
-
- const form=$("regForm");
- const msg=$("msg");
- const btn=$("submitBtn");
-
- if(!form.reportValidity())return;
-
- const data=Object.fromEntries(new FormData(form).entries());
- data.amount=Number(data.amount);
-
- if(!data.trxId.trim() || !data.senderPhone.trim()){
-  msg.textContent="পেমেন্টের সব তথ্য পূরণ করো।";
+ if(!team||!captain||!phone||players.some(x=>!x)||!payment||!sender||!trx){
+  message("message","সব তথ্য পূরণ করো।");
   return;
  }
 
+ if(!currentFee||currentFee<1){
+  message("message","Registration এখনো চালু হয়নি। Entry Fee সেট করা হয়নি।");
+  return;
+ }
+
+ const btn=$("submitBtn");
  btn.disabled=true;
- btn.textContent="জমা হচ্ছে...";
- msg.textContent="";
+ message("message","Registration জমা হচ্ছে...");
 
  try{
-
   const newRef=push(ref(db,"registrations"));
-
   await set(newRef,{
-   ...data,
+   team,
+   captain,
+   phone,
+   players,
+   payment,
+   amount:currentFee,
+   sender,
+   trx,
    status:"Pending",
    createdAt:Date.now()
   });
 
-  form.reset();
+  message("message","Registration সফল হয়েছে! Admin যাচাই করার পর Confirm করবেন।");
 
-  msg.textContent="সফলভাবে জমা হয়েছে! তোমার রেজিস্ট্রেশন Pending। অ্যাডমিন যাচাই করবেন।";
-
- }catch(error){
-
-  msg.textContent="জমা হয়নি: "+error.message;
-
+  ["team","captain","phone","p1","p2","p3","p4","sender","trx"].forEach(id=>$(id).value="");
+  $("payment").value="";
+ }catch(e){
+  message("message","সমস্যা হয়েছে: "+e.message);
  }finally{
-
   btn.disabled=false;
-  btn.textContent="SUBMIT REGISTRATION";
-
  }
-
-});
-
-
-/* ==================================
-   ADMIN LOGIN
-================================== */
-
-$("loginBtn").onclick=async()=>{
-
- const email=$("adminEmail").value.trim();
- const password=$("adminPassword").value;
-
- if(!email || !password){
-  $("loginMsg").textContent="Email ও Password দাও।";
-  return;
- }
-
- $("loginBtn").disabled=true;
- $("loginMsg").textContent="লগইন হচ্ছে...";
-
- try{
-
-  await signInWithEmailAndPassword(auth,email,password);
-
- }catch(error){
-
-  $("loginMsg").textContent="Login failed: "+error.message;
-
- }finally{
-
-  $("loginBtn").disabled=false;
-
- }
-
 };
 
+// Login
+$("loginOpen").onclick=()=>show("loginPage");
+$("closeLogin").onclick=()=>hide("loginPage");
 
-/* ==================================
-   CHECK ADMIN AUTH
-================================== */
-
-onAuthStateChanged(auth,user=>{
-
- if(user && user.uid===ADMIN_UID){
-
-  showPage("dashboard");
-  loadRegistrations();
-
- }else{
-
-  if(unsubscribe){
-   unsubscribe();
-   unsubscribe=null;
-  }
-
-  if(user){
-   $("loginMsg").textContent="এই অ্যাকাউন্ট Admin নয়।";
-   signOut(auth);
-  }
-
-  showPage("registration");
-
+$("loginBtn").onclick=async()=>{
+ try{
+  await signInWithEmailAndPassword(
+   auth,$("email").value.trim(),$("password").value
+  );
+  message("loginMessage","Login successful");
+ }catch(e){
+  message("loginMessage","Login হয়নি: "+e.message);
  }
+};
 
+// Admin authentication
+onAuthStateChanged(auth,user=>{
+ if(user&&user.uid===ADMIN_UID){
+  show("dashboard");
+  hide("loginPage");
+  loadTeams();
+ }else{
+  hide("dashboard");
+  if(user){
+   signOut(auth);
+   alert("এই অ্যাকাউন্ট Admin নয়।");
+  }
+ }
 });
 
+// Save entry fee
+$("saveFeeBtn").onclick=async()=>{
+ const fee=Number($("feeInput").value);
+ if(!Number.isInteger(fee)||fee<1){
+  message("feeMessage","সঠিক Entry Fee লিখো।");
+  return;
+ }
+ try{
+  await set(ref(db,"settings/entryFee"),fee);
+  message("feeMessage","Entry Fee সফলভাবে আপডেট হয়েছে!");
+ }catch(e){
+  message("feeMessage","সমস্যা: "+e.message);
+ }
+};
 
-/* ==================================
-   LOAD REGISTRATIONS
-================================== */
-
-function loadRegistrations(){
-
- if(unsubscribe)unsubscribe();
-
- unsubscribe=onValue(
-  ref(db,"registrations"),
-  snapshot=>{
-
-   registrations=snapshot.val()||{};
-   renderTeams();
-
-  },
-  error=>{
-
-   $("adminMsg").textContent="তথ্য লোড হয়নি: "+error.message;
-
-  }
- );
-
+// Load teams
+function loadTeams(){
+ onValue(ref(db,"registrations"),snap=>{
+  currentTeams=snap.val()||{};
+  renderTeams();
+ },error=>{
+  $("teamList").textContent="ডাটা লোড হয়নি: "+error.message;
+ });
 }
 
-
-/* ==================================
-   RENDER DASHBOARD
-================================== */
-
 function renderTeams(){
-
- const entries=Object.entries(registrations);
  const list=$("teamList");
+ list.innerHTML="";
 
- list.replaceChildren();
-
- const total=entries.length;
- const pending=entries.filter(([id,d])=>(d.status||"Pending")==="Pending").length;
- const confirmed=entries.filter(([id,d])=>d.status==="Confirmed").length;
- const rejected=entries.filter(([id,d])=>d.status==="Rejected").length;
-
- $("totalCount").textContent=total;
- $("pendingCount").textContent=pending;
- $("confirmedCount").textContent=confirmed;
- $("rejectedCount").textContent=rejected;
-
+ const entries=Object.entries(currentTeams);
  const filter=$("filter").value;
 
- const filtered=entries.reverse().filter(([id,d])=>{
-  return filter==="All" || (d.status||"Pending")===filter;
- });
+ let shown=entries.filter(([id,t])=>
+  filter==="All"||t.status===filter
+ );
 
- if(filtered.length===0){
-  list.textContent="কোনো রেজিস্ট্রেশন পাওয়া যায়নি।";
+ $("total").textContent="Total Teams: "+entries.length;
+ $("pending").textContent="Pending: "+entries.filter(x=>x[1].status==="Pending").length;
+ $("confirmed").textContent="Confirmed: "+entries.filter(x=>x[1].status==="Confirmed").length;
+ $("rejected").textContent="Rejected: "+entries.filter(x=>x[1].status==="Rejected").length;
+
+ if(!shown.length){
+  list.textContent="কোনো Team পাওয়া যায়নি।";
   return;
  }
 
- filtered.forEach(([id,d])=>{
+ shown.forEach(([id,t])=>{
+  const div=document.createElement("div");
+  div.className="team";
 
-  const box=document.createElement("div");
-  box.className="team";
+  const btn=document.createElement("button");
+  btn.textContent=(t.team||"Unnamed Team")+" — "+(t.status||"Pending");
+  btn.onclick=()=>openDetails(id);
 
-  const heading=document.createElement("h3");
-  heading.className="status";
-  heading.textContent=d.teamName||"Unnamed Team";
+  div.appendChild(btn);
+  list.appendChild(div);
+ });
+}
 
-  const details=document.createElement("div");
-  details.className="details";
+// Show full details
+function openDetails(id){
+ const t=currentTeams[id];
+ if(!t)return;
 
-  details.textContent=[
-   "ক্যাপ্টেন: "+(d.captainName||""),
-   "ফোন: "+(d.captainPhone||""),
-   "",
-   "Player 1: "+(d.p1name||"")+" / "+(d.p1ign||""),
-   "Player 2: "+(d.p2name||"")+" / "+(d.p2ign||""),
-   "Player 3: "+(d.p3name||"")+" / "+(d.p3ign||""),
-   "Player 4: "+(d.p4name||"")+" / "+(d.p4ign||""),
-   "",
-   "Payment: "+(d.paymentMethod||""),
-   "Amount: ৳"+(d.amount||""),
-   "Sender: "+(d.senderPhone||""),
-   "TrxID: "+(d.trxId||""),
-   "STATUS: "+(d.status||"Pending")
-  ].join("\n");
+ selectedId=id;
+ const content=$("detailsContent");
+ content.innerHTML="";
 
-  const confirmBtn=document.createElement("button");
-  confirmBtn.className="green";
-  confirmBtn.textContent="CONFIRM";
-  confirmBtn.onclick=()=>changeStatus(id,"Confirmed");
+ const fields=[
+  ["Team Name",t.team],
+  ["Captain",t.captain],
+  ["Captain Phone",t.phone],
+  ["Player 1",t.players?.[0]],
+  ["Player 2",t.players?.[1]],
+  ["Player 3",t.players?.[2]],
+  ["Player 4",t.players?.[3]],
+  ["Payment Method",t.payment],
+  ["Entry Fee","৳"+(t.amount??"")],
+  ["Sender Number",t.sender],
+  ["Transaction ID",t.trx],
+  ["Status",t.status],
+  ["Registration Date",t.createdAt?new Date(t.createdAt).toLocaleString("bn-BD"):"Not available"]
+ ];
 
-  const rejectBtn=document.createElement("button");
-  rejectBtn.className="gray";
-  rejectBtn.textContent="REJECT";
-  rejectBtn.onclick=()=>changeStatus(id,"Rejected");
-
-  const deleteBtn=document.createElement("button");
-  deleteBtn.className="red";
-  deleteBtn.textContent="DELETE";
-  deleteBtn.onclick=()=>deleteTeam(id);
-
-  box.append(heading,details,confirmBtn,rejectBtn,deleteBtn);
-  list.appendChild(box);
-
+ fields.forEach(([label,value])=>{
+  const div=document.createElement("div");
+  div.className="detail";
+  const strong=document.createElement("strong");
+  strong.textContent=label+": ";
+  div.appendChild(strong);
+  div.appendChild(document.createTextNode(value==null?"Not available":String(value)));
+  content.appendChild(div);
  });
 
+ show("detailsCard");
+ $("detailsCard").scrollIntoView({behavior:"smooth"});
 }
 
+// Admin actions
+$("confirmBtn").onclick=()=>changeStatus("Confirmed");
+$("rejectBtn").onclick=()=>changeStatus("Rejected");
 
-/* ==================================
-   CHANGE STATUS
-================================== */
-
-async function changeStatus(id,status){
-
- if(!window.confirm("এই টিমকে "+status+" করতে চাও?"))return;
-
+async function changeStatus(status){
+ if(!selectedId)return;
  try{
-
-  await update(
-   ref(db,"registrations/"+id),
-   {status:status}
-  );
-
-  $("adminMsg").textContent="Status updated: "+status;
-
- }catch(error){
-
-  alert("সমস্যা: "+error.message);
-
+  await update(ref(db,"registrations/"+selectedId),{status});
+  alert("Team status updated: "+status);
+ }catch(e){
+  alert("সমস্যা: "+e.message);
  }
-
 }
 
-
-/* ==================================
-   DELETE TEAM
-================================== */
-
-async function deleteTeam(id){
-
- if(!window.confirm("এই রেজিস্ট্রেশন মুছে ফেলবে?"))return;
-
+$("deleteBtn").onclick=async()=>{
+ if(!selectedId)return;
+ if(!confirm("এই Team Delete করতে চাও?"))return;
  try{
-
-  await remove(ref(db,"registrations/"+id));
-  $("adminMsg").textContent="Registration deleted.";
-
- }catch(error){
-
-  alert("Delete হয়নি: "+error.message);
-
+  await remove(ref(db,"registrations/"+selectedId));
+  hide("detailsCard");
+  selectedId=null;
+ }catch(e){
+  alert("সমস্যা: "+e.message);
  }
+};
 
-}
-
-
-/* ==================================
-   OTHER BUTTONS
-================================== */
+$("closeDetails").onclick=()=>{
+ hide("detailsCard");
+ selectedId=null;
+};
 
 $("filter").onchange=renderTeams;
-
-$("refreshBtn").onclick=loadRegistrations;
+$("refreshBtn").onclick=loadTeams;
 
 $("logoutBtn").onclick=async()=>{
  await signOut(auth);
 };
-
 </script>
 </body>
 </html>
