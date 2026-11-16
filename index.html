@@ -10,48 +10,55 @@
 body{margin:0;background:#080e1c;color:white;font-family:Arial,sans-serif}
 header{text-align:center;padding:25px 12px;background:#101d35;border-bottom:2px solid #00d9ff}
 header h1{color:#00d9ff;margin:0}
-main{max-width:680px;margin:auto;padding:14px}
+main{max-width:700px;margin:auto;padding:14px}
 .card{background:#14213a;padding:17px;border-radius:13px;margin:14px 0}
 h2,h3{color:#00d9ff}
-input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #344866;border-radius:8px;background:#0c172b;color:white}
+input,select,textarea{width:100%;padding:13px;margin:7px 0;border:1px solid #344866;border-radius:8px;background:#0c172b;color:white}
+textarea{min-height:85px;resize:vertical}
 button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#00d9ff;color:#06101c;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.5;cursor:not-allowed}
+button:disabled{opacity:.5}
 .red{background:#e53935;color:white}
 .green{background:#00c853;color:#06101c}
 .gray{background:#607d8b;color:white}
 .small{font-size:13px;color:#bdcce0;line-height:1.6}
 .hidden{display:none}
-.team{background:#20314f;padding:13px;border-radius:10px;margin:10px 0}
-.team button{text-align:left;background:#30496d;color:white}
 .detail{padding:11px;background:#0c172b;border-radius:8px;margin:7px 0;overflow-wrap:anywhere}
-.status{font-weight:bold}
-.notice{text-align:center;padding:14px;background:#54252b;border-radius:10px;color:#ffb8b8}
+.team{background:#20314f;padding:12px;border-radius:10px;margin:10px 0}
+.team button{text-align:left;background:#30496d;color:white}
+.notice{text-align:center;padding:15px;background:#54252b;border-radius:10px;color:#ffb8b8}
+.info{border-left:3px solid #00d9ff;padding:10px;background:#0c172b;margin:8px 0}
 </style>
 </head>
 <body>
 
 <header>
 <h1>🏆 LALPUR LAN</h1>
-<p>OFFICIAL TOURNAMENT REGISTRATION</p>
+<p>OFFICIAL TOURNAMENT WEBSITE</p>
 </header>
 
 <main>
 
+<!-- PUBLIC TOURNAMENT INFORMATION -->
+<section class="card">
+<h2 id="publicName">LALPUR LAN TOURNAMENT</h2>
+<div class="info">📅 তারিখ: <strong id="publicDate">ঘোষণা করা হয়নি</strong></div>
+<div class="info">⏰ সময়: <strong id="publicTime">ঘোষণা করা হয়নি</strong></div>
+<div class="info">📍 স্থান: <strong id="publicLocation">ঘোষণা করা হয়নি</strong></div>
+<div class="info">🏆 Entry Fee: <strong id="publicFee">৳0</strong></div>
+<p id="publicDescription" class="small">Tournament details এখানে দেখা যাবে।</p>
+</section>
+
+<!-- REGISTRATION -->
 <section id="registerPage" class="card">
 <h2>TEAM REGISTRATION</h2>
 
-<div class="detail">
-Entry Fee: <strong id="publicFee">Loading...</strong>
-</div>
-
 <div id="closedNotice" class="notice hidden">
 <h3>REGISTRATION CLOSED</h3>
-<p>বর্তমানে নতুন Team Registration বন্ধ রয়েছে।</p>
+নতুন Registration বর্তমানে বন্ধ।
 </div>
 
 <div id="registrationForm">
 <p class="small">
-Payment Number:<br>
 bKash: 01740745730<br>
 Nagad: 01870803145
 </p>
@@ -60,28 +67,27 @@ Nagad: 01870803145
 <input id="captain" placeholder="Captain Name">
 <input id="phone" placeholder="Captain Phone Number">
 
-<h3>PLAYER INFORMATION</h3>
+<h3>PLAYER DETAILS</h3>
 <input id="p1" placeholder="Player 1 Name / IGN">
 <input id="p2" placeholder="Player 2 Name / IGN">
 <input id="p3" placeholder="Player 3 Name / IGN">
 <input id="p4" placeholder="Player 4 Name / IGN">
 
-<h3>PAYMENT INFORMATION</h3>
+<h3>PAYMENT DETAILS</h3>
 <select id="payment">
 <option value="">Payment Method</option>
 <option value="bKash">bKash</option>
 <option value="Nagad">Nagad</option>
 </select>
-
 <input id="sender" placeholder="Payment Sender Number">
 <input id="trx" placeholder="Transaction ID">
 
 <button id="submitBtn">SUBMIT REGISTRATION</button>
 </div>
-
 <p id="message" class="small"></p>
 </section>
 
+<!-- ADMIN LOGIN -->
 <section class="card">
 <button id="loginOpen">ADMIN LOGIN</button>
 </section>
@@ -91,10 +97,11 @@ Nagad: 01870803145
 <input id="email" type="email" placeholder="Admin Email">
 <input id="password" type="password" placeholder="Admin Password">
 <button id="loginBtn">LOGIN</button>
-<button class="gray" id="closeLogin">CLOSE</button>
+<button id="closeLogin" class="gray">CLOSE</button>
 <p id="loginMessage" class="small"></p>
 </section>
 
+<!-- ADMIN DASHBOARD -->
 <section id="dashboard" class="hidden">
 
 <div class="card">
@@ -106,20 +113,40 @@ Nagad: 01870803145
 <button id="logoutBtn" class="red">LOGOUT</button>
 </div>
 
+<!-- TOURNAMENT SETTINGS -->
 <div class="card">
-<h2>REGISTRATION CONTROL</h2>
-<p id="regStatus">Loading...</p>
-<button id="regToggleBtn">Loading...</button>
-<p class="small">এখান থেকে নতুন Registration চালু বা বন্ধ করতে পারবে।</p>
+<h2>🏆 TOURNAMENT SETTINGS</h2>
+
+<input id="eventName" placeholder="Tournament Name">
+<label class="small">Tournament Date</label>
+<input id="eventDate" type="date">
+
+<label class="small">Tournament Time</label>
+<input id="eventTime" type="time">
+
+<input id="eventLocation" placeholder="Tournament Location / Venue">
+<textarea id="eventDescription" placeholder="Tournament Description"></textarea>
+
+<button id="saveTournament">SAVE TOURNAMENT INFORMATION</button>
+<p id="tournamentMessage" class="small"></p>
 </div>
 
+<!-- ENTRY FEE -->
 <div class="card">
-<h2>ENTRY FEE SETTINGS</h2>
+<h2>💰 ENTRY FEE SETTINGS</h2>
 <input id="feeInput" type="number" min="1" placeholder="Entry Fee in Taka">
-<button id="saveFeeBtn">SAVE ENTRY FEE</button>
+<button id="saveFee">SAVE ENTRY FEE</button>
 <p id="feeMessage" class="small"></p>
 </div>
 
+<!-- REGISTRATION CONTROL -->
+<div class="card">
+<h2>REGISTRATION CONTROL</h2>
+<p id="regStatus">Loading...</p>
+<button id="regToggle">Loading...</button>
+</div>
+
+<!-- TEAM MANAGEMENT -->
 <div class="card">
 <h2>TEAM MANAGEMENT</h2>
 <select id="filter">
@@ -131,13 +158,14 @@ Nagad: 01870803145
 <div id="teamList">Loading...</div>
 </div>
 
+<!-- TEAM DETAILS -->
 <div id="detailsCard" class="card hidden">
 <h2>COMPLETE TEAM DETAILS</h2>
 <div id="detailsContent"></div>
 <button id="confirmBtn" class="green">CONFIRM TEAM</button>
 <button id="rejectBtn" class="red">REJECT TEAM</button>
 <button id="deleteBtn" class="gray">DELETE TEAM</button>
-<button id="closeDetails" class="gray">CLOSE DETAILS</button>
+<button id="closeDetails" class="gray">CLOSE</button>
 </div>
 
 </section>
@@ -174,52 +202,55 @@ const db=getDatabase(app);
 const auth=getAuth(app);
 const $=id=>document.getElementById(id);
 
+let isAdmin=false;
 let currentFee=0;
 let registrationOpen=false;
 let currentTeams={};
 let selectedId=null;
-let isAdmin=false;
 
 function show(id){$(id).classList.remove("hidden")}
 function hide(id){$(id).classList.add("hidden")}
 function msg(id,text){$(id).textContent=text}
 
-// Public settings
+// LOAD PUBLIC SETTINGS
 onValue(ref(db,"settings"),snap=>{
- const settings=snap.val()||{};
- currentFee=Number(settings.entryFee||0);
- registrationOpen=settings.registrationOpen===true;
+ const s=snap.val()||{};
+ currentFee=Number(s.entryFee||0);
+ registrationOpen=s.registrationOpen===true;
+ const t=s.tournament||{};
 
- $("publicFee").textContent=currentFee>0?"৳"+currentFee:"Not Set";
+ $("publicName").textContent=t.name||"LALPUR LAN TOURNAMENT";
+ $("publicDate").textContent=t.date||"ঘোষণা করা হয়নি";
+ $("publicTime").textContent=t.time||"ঘোষণা করা হয়নি";
+ $("publicLocation").textContent=t.location||"ঘোষণা করা হয়নি";
+ $("publicDescription").textContent=t.description||"";
+ $("publicFee").textContent=currentFee>0?"৳"+currentFee:"ঘোষণা করা হয়নি";
+
+ $("eventName").value=t.name||"";
+ $("eventDate").value=t.date||"";
+ $("eventTime").value=t.time||"";
+ $("eventLocation").value=t.location||"";
+ $("eventDescription").value=t.description||"";
  $("feeInput").value=currentFee||"";
 
  $("regStatus").textContent=registrationOpen
-  ?"Registration বর্তমানে চালু"
-  :"Registration বর্তমানে বন্ধ";
+  ?"Registration চালু আছে":"Registration বন্ধ আছে";
 
- $("regToggleBtn").textContent=registrationOpen
-  ?"TURN REGISTRATION OFF"
-  :"TURN REGISTRATION ON";
+ $("regToggle").textContent=registrationOpen
+  ?"TURN REGISTRATION OFF":"TURN REGISTRATION ON";
 
- $("regToggleBtn").className=registrationOpen?"red":"green";
+ $("regToggle").className=registrationOpen?"red":"green";
 
- showOrHideRegistration();
-});
-
-function showOrHideRegistration(){
- const open=registrationOpen&&currentFee>0;
- if(open){
+ if(registrationOpen&&currentFee>0){
   show("registrationForm");
   hide("closedNotice");
-  $("submitBtn").disabled=false;
-  $("submitBtn").textContent="SUBMIT REGISTRATION";
  }else{
   hide("registrationForm");
   show("closedNotice");
  }
-}
+});
 
-// Registration
+// REGISTRATION
 $("submitBtn").onclick=async()=>{
  if(!registrationOpen||currentFee<=0){
   msg("message","Registration বর্তমানে বন্ধ।");
@@ -250,32 +281,26 @@ $("submitBtn").onclick=async()=>{
  try{
   const newRef=push(ref(db,"registrations"));
   await set(newRef,{
-   team:team,
-   captain:captain,
-   phone:phone,
-   players:players,
-   payment:payment,
-   amount:currentFee,
-   sender:sender,
-   trx:trx,
+   team,captain,phone,players,payment,
+   amount:currentFee,sender,trx,
    status:"Pending",
    createdAt:Date.now()
   });
 
-  msg("message","Registration সফল! Admin Payment যাচাই করবেন।");
+  msg("message","Registration সফল হয়েছে! Admin যাচাই করবেন।");
 
   ["team","captain","phone","p1","p2","p3","p4","sender","trx"]
    .forEach(id=>$(id).value="");
   $("payment").value="";
 
  }catch(e){
-  msg("message","Registration হয়নি: "+e.message);
+  msg("message","সমস্যা: "+e.message);
  }finally{
-  $("submitBtn").disabled=!registrationOpen||currentFee<=0;
+  $("submitBtn").disabled=false;
  }
 };
 
-// Login
+// ADMIN LOGIN
 $("loginOpen").onclick=()=>show("loginPage");
 $("closeLogin").onclick=()=>hide("loginPage");
 
@@ -289,15 +314,12 @@ $("loginBtn").onclick=async()=>{
  }
 };
 
-// Authentication
 onAuthStateChanged(auth,user=>{
  isAdmin=!!user&&user.uid===ADMIN_UID;
-
  if(isAdmin){
   show("dashboard");
   hide("loginPage");
-  $("email").value="";
-  $("password").value="";
+  loadAdminTeams();
  }else{
   hide("dashboard");
   if(user){
@@ -307,16 +329,33 @@ onAuthStateChanged(auth,user=>{
  }
 });
 
-// Admin load teams once
-onValue(ref(db,"registrations"),snap=>{
- currentTeams=snap.val()||{};
- if(isAdmin)renderTeams();
-},error=>{
- $("teamList").textContent="ডাটা লোড হয়নি: "+error.message;
-});
+// SAVE TOURNAMENT INFORMATION
+$("saveTournament").onclick=async()=>{
+ if(!isAdmin)return;
 
-// Entry Fee
-$("saveFeeBtn").onclick=async()=>{
+ const data={
+  name:$("eventName").value.trim(),
+  date:$("eventDate").value,
+  time:$("eventTime").value,
+  location:$("eventLocation").value.trim(),
+  description:$("eventDescription").value.trim()
+ };
+
+ if(!data.name){
+  msg("tournamentMessage","Tournament Name লিখো।");
+  return;
+ }
+
+ try{
+  await set(ref(db,"settings/tournament"),data);
+  msg("tournamentMessage","Tournament Information সফলভাবে Save হয়েছে!");
+ }catch(e){
+  msg("tournamentMessage","সমস্যা: "+e.message);
+ }
+};
+
+// SAVE ENTRY FEE
+$("saveFee").onclick=async()=>{
  if(!isAdmin)return;
 
  const fee=Number($("feeInput").value);
@@ -333,10 +372,9 @@ $("saveFeeBtn").onclick=async()=>{
  }
 };
 
-// Registration ON/OFF
-$("regToggleBtn").onclick=async()=>{
+// REGISTRATION ON/OFF
+$("regToggle").onclick=async()=>{
  if(!isAdmin)return;
-
  try{
   await set(ref(db,"settings/registrationOpen"),!registrationOpen);
  }catch(e){
@@ -344,16 +382,21 @@ $("regToggleBtn").onclick=async()=>{
  }
 };
 
-// Render teams
+// LOAD TEAMS
+function loadAdminTeams(){
+ onValue(ref(db,"registrations"),snap=>{
+  currentTeams=snap.val()||{};
+  renderTeams();
+ },error=>{
+  $("teamList").textContent="ডাটা লোড হয়নি: "+error.message;
+ });
+}
+
 function renderTeams(){
  if(!isAdmin)return;
 
- const list=$("teamList");
- list.innerHTML="";
-
  const entries=Object.entries(currentTeams);
  const filter=$("filter").value;
-
  const shown=entries.filter(([id,t])=>
   filter==="All"||t.status===filter
  );
@@ -363,6 +406,9 @@ function renderTeams(){
  $("confirmed").textContent="Confirmed: "+entries.filter(x=>x[1].status==="Confirmed").length;
  $("rejected").textContent="Rejected: "+entries.filter(x=>x[1].status==="Rejected").length;
 
+ const list=$("teamList");
+ list.innerHTML="";
+
  if(!shown.length){
   list.textContent="কোনো Team পাওয়া যায়নি।";
   return;
@@ -371,20 +417,17 @@ function renderTeams(){
  shown.forEach(([id,t])=>{
   const div=document.createElement("div");
   div.className="team";
-
   const btn=document.createElement("button");
   btn.textContent=(t.team||"Unnamed Team")+" | "+(t.status||"Pending");
   btn.onclick=()=>openDetails(id);
-
   div.appendChild(btn);
   list.appendChild(div);
  });
 }
 
-// Full details
+// FULL TEAM DETAILS
 function openDetails(id){
  if(!isAdmin)return;
-
  const t=currentTeams[id];
  if(!t)return;
 
@@ -411,14 +454,12 @@ function openDetails(id){
  fields.forEach(([label,value])=>{
   const div=document.createElement("div");
   div.className="detail";
-
   const strong=document.createElement("strong");
   strong.textContent=label+": ";
   div.appendChild(strong);
   div.appendChild(document.createTextNode(
    value==null?"Not available":String(value)
   ));
-
   content.appendChild(div);
  });
 
@@ -426,13 +467,12 @@ function openDetails(id){
  $("detailsCard").scrollIntoView({behavior:"smooth"});
 }
 
-// Status actions
+// ADMIN ACTIONS
 async function changeStatus(status){
  if(!isAdmin||!selectedId)return;
-
  try{
   await update(ref(db,"registrations/"+selectedId),{status});
-  alert("Team status updated: "+status);
+  alert("Status updated: "+status);
  }catch(e){
   alert("সমস্যা: "+e.message);
  }
@@ -444,7 +484,6 @@ $("rejectBtn").onclick=()=>changeStatus("Rejected");
 $("deleteBtn").onclick=async()=>{
  if(!isAdmin||!selectedId)return;
  if(!confirm("এই Team Delete করতে চাও?"))return;
-
  try{
   await remove(ref(db,"registrations/"+selectedId));
   hide("detailsCard");
@@ -461,9 +500,7 @@ $("closeDetails").onclick=()=>{
 
 $("filter").onchange=renderTeams;
 
-$("logoutBtn").onclick=async()=>{
- await signOut(auth);
-};
+$("logoutBtn").onclick=()=>signOut(auth);
 </script>
 </body>
 </html>
