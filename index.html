@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LALPUR LAN | Registration</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b14;color:#f7f8fb;font-family:Arial,sans-serif}
+main{max-width:850px;margin:auto;padding:20px 14px 50px}
+h1,.gold{color:#f4c45e}
+h1{font-size:42px}
+.card{background:#111a29;border:1px solid #29374c;border-radius:15px;padding:18px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:7px}
+.full{grid-column:1/-1}
+label{font-size:14px;color:#cbd5e1}
+input,select{width:100%;padding:13px;border-radius:9px;border:1px solid #35445b;background:#08111e;color:white;font-size:15px}
+button{width:100%;padding:15px;border:0;border-radius:10px;background:#f4c45e;font-weight:bold;font-size:16px}
+.note{color:#aab7c9;font-size:13px;line-height:1.7}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay div{background:#08111e;padding:14px;border-radius:10px}
+#msg{white-space:pre-wrap;color:#a8e6b7}
+@media(max-width:600px){.grid,.pay{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="gold"><b>LALPUR LAN • ESPORTS</b></div>
+<h1>TEAM<br>REGISTRATION</h1>
+<p class="note">টুর্নামেন্টে অংশ নিতে টিমের সঠিক তথ্য এবং পেমেন্টের তথ্য জমা দাও।</p>
+
+<form id="regForm">
+<div class="card">
+<h3>01 / টিমের তথ্য</h3>
+<div class="grid">
+<div class="field"><label>টিমের নাম *</label><input name="teamName" required maxlength="40"></div>
+<div class="field"><label>ক্যাপ্টেনের নাম *</label><input name="captainName" required></div>
+<div class="field full"><label>ক্যাপ্টেনের ফোন *</label><input name="captainPhone" required inputmode="tel"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>02 / চারজন প্লেয়ার</h3>
+<div class="grid">
+<div class="field"><label>Player 1 - বাস্তব নাম *</label><input name="p1name" required></div>
+<div class="field"><label>Player 1 - IGN *</label><input name="p1ign" required></div>
+<div class="field"><label>Player 2 - বাস্তব নাম *</label><input name="p2name" required></div>
+<div class="field"><label>Player 2 - IGN *</label><input name="p2ign" required></div>
+<div class="field"><label>Player 3 - বাস্তব নাম *</label><input name="p3name" required></div>
+<div class="field"><label>Player 3 - IGN *</label><input name="p3ign" required></div>
+<div class="field"><label>Player 4 - বাস্তব নাম *</label><input name="p4name" required></div>
+<div class="field"><label>Player 4 - IGN *</label><input name="p4ign" required></div>
+</div>
+</div>
+
+<div class="card">
+<h3>03 / পেমেন্ট</h3>
+<div class="pay">
+<div><b class="gold">bKash</b><br>01740745730</div>
+<div><b class="gold">Nagad</b><br>01870803145</div>
+</div>
+<p class="note">নির্ধারিত এন্ট্রি ফি পাঠিয়ে নিচে তথ্য পূরণ করো। অ্যাডমিন নিজে টাকা যাচাই করবেন।</p>
+<div class="grid">
+<div class="field"><label>পেমেন্ট মাধ্যম *</label>
+<select name="paymentMethod" required>
+<option value="">নির্বাচন করো</option>
+<option value="bKash">bKash</option>
+<option value="Nagad">Nagad</option>
+</select></div>
+<div class="field"><label>পাঠানো টাকার পরিমাণ *</label><input name="amount" type="number" min="1" required></div>
+<div class="field"><label>যে নম্বর থেকে পাঠিয়েছ *</label><input name="senderPhone" required inputmode="tel"></div>
+<div class="field"><label>Transaction ID / TrxID *</label><input name="trxId" required maxlength="60"></div>
+</div>
+</div>
+
+<div class="card">
+<p class="note">জমা দেওয়ার পর রেজিস্ট্রেশন Pending থাকবে। তুমি পেমেন্ট যাচাই করে Confirm না করা পর্যন্ত রেজিস্ট্রেশন সম্পূর্ণ হবে না।</p>
+<button id="submitBtn" type="submit">SUBMIT REGISTRATION</button>
+<p id="msg"></p>
+</div>
+</form>
+</main>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {getDatabase,ref,push,set} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+/* Firebase Console থেকে নিজের তথ্য বসাবে */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const form=document.getElementById("regForm");
+const msg=document.getElementById("msg");
+const btn=document.getElementById("submitBtn");
+
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+
+form.addEventListener("submit",async function(e){
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+
+  const data=Object.fromEntries(new FormData(form).entries());
+  data.amount=Number(data.amount);
+
+  if(!data.trxId.trim() || !data.senderPhone.trim()){
+    msg.textContent="পেমেন্টের সব তথ্য পূরণ করো।";
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent="জমা হচ্ছে...";
+  msg.textContent="";
+
+  try{
+    const newRef=push(ref(db,"registrations"));
+    await set(newRef,{
+      ...data,
+      status:"Pending",
+      createdAt:Date.now()
+    });
+    form.reset();
+    msg.textContent="সফলভাবে জমা হয়েছে। তোমার রেজিস্ট্রেশন এখন Pending। অ্যাডমিন যাচাই করবেন।";
+  }catch(error){
+    msg.textContent="জমা হয়নি: "+error.message;
+  }finally{
+    btn.disabled=false;
+    btn.textContent="SUBMIT REGISTRATION";
+  }
+});
+</script>
+</body>
+</html>
