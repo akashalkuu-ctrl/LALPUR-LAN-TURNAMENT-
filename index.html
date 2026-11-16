@@ -8,22 +8,24 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080e1c;color:white;font-family:Arial,sans-serif}
-header{text-align:center;padding:24px;background:#101d35;border-bottom:2px solid #00d9ff}
+header{text-align:center;padding:25px 12px;background:#101d35;border-bottom:2px solid #00d9ff}
 header h1{color:#00d9ff;margin:0}
 main{max-width:680px;margin:auto;padding:14px}
 .card{background:#14213a;padding:17px;border-radius:13px;margin:14px 0}
 h2,h3{color:#00d9ff}
 input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #344866;border-radius:8px;background:#0c172b;color:white}
-button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#00d9ff;color:#06101c;font-weight:bold}
+button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;background:#00d9ff;color:#06101c;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
 .red{background:#e53935;color:white}
 .green{background:#00c853;color:#06101c}
 .gray{background:#607d8b;color:white}
 .small{font-size:13px;color:#bdcce0;line-height:1.6}
 .hidden{display:none}
 .team{background:#20314f;padding:13px;border-radius:10px;margin:10px 0}
-.team button{background:#30496d;color:white;text-align:left}
+.team button{text-align:left;background:#30496d;color:white}
+.detail{padding:11px;background:#0c172b;border-radius:8px;margin:7px 0;overflow-wrap:anywhere}
 .status{font-weight:bold}
-.detail{padding:10px;background:#0c172b;border-radius:8px;margin:7px 0;overflow-wrap:anywhere}
+.notice{text-align:center;padding:14px;background:#54252b;border-radius:10px;color:#ffb8b8}
 </style>
 </head>
 <body>
@@ -36,13 +38,20 @@ button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:8px;backgroun
 <main>
 
 <section id="registerPage" class="card">
-<h2>Team Registration</h2>
+<h2>TEAM REGISTRATION</h2>
 
 <div class="detail">
-Entry Fee: <strong id="publicFee">লোড হচ্ছে...</strong>
+Entry Fee: <strong id="publicFee">Loading...</strong>
 </div>
 
+<div id="closedNotice" class="notice hidden">
+<h3>REGISTRATION CLOSED</h3>
+<p>বর্তমানে নতুন Team Registration বন্ধ রয়েছে।</p>
+</div>
+
+<div id="registrationForm">
 <p class="small">
+Payment Number:<br>
 bKash: 01740745730<br>
 Nagad: 01870803145
 </p>
@@ -51,22 +60,25 @@ Nagad: 01870803145
 <input id="captain" placeholder="Captain Name">
 <input id="phone" placeholder="Captain Phone Number">
 
-<h3>Player Information</h3>
+<h3>PLAYER INFORMATION</h3>
 <input id="p1" placeholder="Player 1 Name / IGN">
 <input id="p2" placeholder="Player 2 Name / IGN">
 <input id="p3" placeholder="Player 3 Name / IGN">
 <input id="p4" placeholder="Player 4 Name / IGN">
 
-<h3>Payment Information</h3>
+<h3>PAYMENT INFORMATION</h3>
 <select id="payment">
 <option value="">Payment Method</option>
 <option value="bKash">bKash</option>
 <option value="Nagad">Nagad</option>
 </select>
+
 <input id="sender" placeholder="Payment Sender Number">
 <input id="trx" placeholder="Transaction ID">
 
 <button id="submitBtn">SUBMIT REGISTRATION</button>
+</div>
+
 <p id="message" class="small"></p>
 </section>
 
@@ -75,7 +87,7 @@ Nagad: 01870803145
 </section>
 
 <section id="loginPage" class="card hidden">
-<h2>Admin Login</h2>
+<h2>ADMIN LOGIN</h2>
 <input id="email" type="email" placeholder="Admin Email">
 <input id="password" type="password" placeholder="Admin Password">
 <button id="loginBtn">LOGIN</button>
@@ -91,20 +103,25 @@ Nagad: 01870803145
 <p id="pending">Pending: 0</p>
 <p id="confirmed">Confirmed: 0</p>
 <p id="rejected">Rejected: 0</p>
-<button id="refreshBtn">REFRESH</button>
-<button class="red" id="logoutBtn">LOGOUT</button>
+<button id="logoutBtn" class="red">LOGOUT</button>
 </div>
 
 <div class="card">
-<h2>Entry Fee Settings</h2>
-<p class="small">নতুন টিমের জন্য Entry Fee নির্ধারণ করো।</p>
-<input id="feeInput" type="number" min="1" placeholder="Entry Fee (টাকা)">
+<h2>REGISTRATION CONTROL</h2>
+<p id="regStatus">Loading...</p>
+<button id="regToggleBtn">Loading...</button>
+<p class="small">এখান থেকে নতুন Registration চালু বা বন্ধ করতে পারবে।</p>
+</div>
+
+<div class="card">
+<h2>ENTRY FEE SETTINGS</h2>
+<input id="feeInput" type="number" min="1" placeholder="Entry Fee in Taka">
 <button id="saveFeeBtn">SAVE ENTRY FEE</button>
 <p id="feeMessage" class="small"></p>
 </div>
 
 <div class="card">
-<h2>Team Management</h2>
+<h2>TEAM MANAGEMENT</h2>
 <select id="filter">
 <option value="All">All Teams</option>
 <option value="Pending">Pending</option>
@@ -115,12 +132,12 @@ Nagad: 01870803145
 </div>
 
 <div id="detailsCard" class="card hidden">
-<h2>Complete Team Details</h2>
+<h2>COMPLETE TEAM DETAILS</h2>
 <div id="detailsContent"></div>
-<button class="green" id="confirmBtn">CONFIRM TEAM</button>
-<button class="red" id="rejectBtn">REJECT TEAM</button>
-<button class="gray" id="deleteBtn">DELETE TEAM</button>
-<button class="gray" id="closeDetails">CLOSE DETAILS</button>
+<button id="confirmBtn" class="green">CONFIRM TEAM</button>
+<button id="rejectBtn" class="red">REJECT TEAM</button>
+<button id="deleteBtn" class="gray">DELETE TEAM</button>
+<button id="closeDetails" class="gray">CLOSE DETAILS</button>
 </div>
 
 </section>
@@ -155,84 +172,106 @@ const ADMIN_UID="QvFPvq0h2tX7M0pjhfMcLP6a7WF3";
 const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 const auth=getAuth(app);
-
 const $=id=>document.getElementById(id);
+
+let currentFee=0;
+let registrationOpen=false;
 let currentTeams={};
 let selectedId=null;
-let currentFee=0;
+let isAdmin=false;
 
-function message(id,text){
- $(id).textContent=text;
-}
+function show(id){$(id).classList.remove("hidden")}
+function hide(id){$(id).classList.add("hidden")}
+function msg(id,text){$(id).textContent=text}
 
-function show(id){
- $(id).classList.remove("hidden");
-}
+// Public settings
+onValue(ref(db,"settings"),snap=>{
+ const settings=snap.val()||{};
+ currentFee=Number(settings.entryFee||0);
+ registrationOpen=settings.registrationOpen===true;
 
-function hide(id){
- $(id).classList.add("hidden");
-}
-
-// Load public entry fee
-onValue(ref(db,"settings/entryFee"),snap=>{
- currentFee=Number(snap.val()||0);
- $("publicFee").textContent=currentFee>0?
- "৳"+currentFee:"Admin এখনো Entry Fee সেট করেননি";
+ $("publicFee").textContent=currentFee>0?"৳"+currentFee:"Not Set";
  $("feeInput").value=currentFee||"";
+
+ $("regStatus").textContent=registrationOpen
+  ?"Registration বর্তমানে চালু"
+  :"Registration বর্তমানে বন্ধ";
+
+ $("regToggleBtn").textContent=registrationOpen
+  ?"TURN REGISTRATION OFF"
+  :"TURN REGISTRATION ON";
+
+ $("regToggleBtn").className=registrationOpen?"red":"green";
+
+ showOrHideRegistration();
 });
+
+function showOrHideRegistration(){
+ const open=registrationOpen&&currentFee>0;
+ if(open){
+  show("registrationForm");
+  hide("closedNotice");
+  $("submitBtn").disabled=false;
+  $("submitBtn").textContent="SUBMIT REGISTRATION";
+ }else{
+  hide("registrationForm");
+  show("closedNotice");
+ }
+}
 
 // Registration
 $("submitBtn").onclick=async()=>{
+ if(!registrationOpen||currentFee<=0){
+  msg("message","Registration বর্তমানে বন্ধ।");
+  return;
+ }
+
  const team=$("team").value.trim();
  const captain=$("captain").value.trim();
  const phone=$("phone").value.trim();
  const players=[
- $("p1").value.trim(),
- $("p2").value.trim(),
- $("p3").value.trim(),
- $("p4").value.trim()
+  $("p1").value.trim(),
+  $("p2").value.trim(),
+  $("p3").value.trim(),
+  $("p4").value.trim()
  ];
  const payment=$("payment").value;
  const sender=$("sender").value.trim();
  const trx=$("trx").value.trim();
 
  if(!team||!captain||!phone||players.some(x=>!x)||!payment||!sender||!trx){
-  message("message","সব তথ্য পূরণ করো।");
+  msg("message","সব তথ্য পূরণ করো।");
   return;
  }
 
- if(!currentFee||currentFee<1){
-  message("message","Registration এখনো চালু হয়নি। Entry Fee সেট করা হয়নি।");
-  return;
- }
-
- const btn=$("submitBtn");
- btn.disabled=true;
- message("message","Registration জমা হচ্ছে...");
+ $("submitBtn").disabled=true;
+ msg("message","Registration জমা হচ্ছে...");
 
  try{
   const newRef=push(ref(db,"registrations"));
   await set(newRef,{
-   team,
-   captain,
-   phone,
-   players,
-   payment,
+   team:team,
+   captain:captain,
+   phone:phone,
+   players:players,
+   payment:payment,
    amount:currentFee,
-   sender,
-   trx,
+   sender:sender,
+   trx:trx,
    status:"Pending",
    createdAt:Date.now()
   });
 
-  message("message","Registration সফল হয়েছে! Admin যাচাই করার পর Confirm করবেন।");
+  msg("message","Registration সফল! Admin Payment যাচাই করবেন।");
 
-  ["team","captain","phone","p1","p2","p3","p4","sender","trx"].forEach(id=>$(id).value="");
+  ["team","captain","phone","p1","p2","p3","p4","sender","trx"]
+   .forEach(id=>$(id).value="");
   $("payment").value="";
+
  }catch(e){
-  message("message","সমস্যা হয়েছে: "+e.message);
+  msg("message","Registration হয়নি: "+e.message);
  }finally{
-  btn.disabled=false;
+  $("submitBtn").disabled=!registrationOpen||currentFee<=0;
  }
 };
 
@@ -245,18 +284,20 @@ $("loginBtn").onclick=async()=>{
   await signInWithEmailAndPassword(
    auth,$("email").value.trim(),$("password").value
   );
-  message("loginMessage","Login successful");
  }catch(e){
-  message("loginMessage","Login হয়নি: "+e.message);
+  msg("loginMessage","Login হয়নি: "+e.message);
  }
 };
 
-// Admin authentication
+// Authentication
 onAuthStateChanged(auth,user=>{
- if(user&&user.uid===ADMIN_UID){
+ isAdmin=!!user&&user.uid===ADMIN_UID;
+
+ if(isAdmin){
   show("dashboard");
   hide("loginPage");
-  loadTeams();
+  $("email").value="";
+  $("password").value="";
  }else{
   hide("dashboard");
   if(user){
@@ -266,39 +307,54 @@ onAuthStateChanged(auth,user=>{
  }
 });
 
-// Save entry fee
+// Admin load teams once
+onValue(ref(db,"registrations"),snap=>{
+ currentTeams=snap.val()||{};
+ if(isAdmin)renderTeams();
+},error=>{
+ $("teamList").textContent="ডাটা লোড হয়নি: "+error.message;
+});
+
+// Entry Fee
 $("saveFeeBtn").onclick=async()=>{
+ if(!isAdmin)return;
+
  const fee=Number($("feeInput").value);
  if(!Number.isInteger(fee)||fee<1){
-  message("feeMessage","সঠিক Entry Fee লিখো।");
+  msg("feeMessage","সঠিক Entry Fee লিখো।");
   return;
  }
+
  try{
   await set(ref(db,"settings/entryFee"),fee);
-  message("feeMessage","Entry Fee সফলভাবে আপডেট হয়েছে!");
+  msg("feeMessage","Entry Fee আপডেট হয়েছে!");
  }catch(e){
-  message("feeMessage","সমস্যা: "+e.message);
+  msg("feeMessage","সমস্যা: "+e.message);
  }
 };
 
-// Load teams
-function loadTeams(){
- onValue(ref(db,"registrations"),snap=>{
-  currentTeams=snap.val()||{};
-  renderTeams();
- },error=>{
-  $("teamList").textContent="ডাটা লোড হয়নি: "+error.message;
- });
-}
+// Registration ON/OFF
+$("regToggleBtn").onclick=async()=>{
+ if(!isAdmin)return;
 
+ try{
+  await set(ref(db,"settings/registrationOpen"),!registrationOpen);
+ }catch(e){
+  alert("সমস্যা: "+e.message);
+ }
+};
+
+// Render teams
 function renderTeams(){
+ if(!isAdmin)return;
+
  const list=$("teamList");
  list.innerHTML="";
 
  const entries=Object.entries(currentTeams);
  const filter=$("filter").value;
 
- let shown=entries.filter(([id,t])=>
+ const shown=entries.filter(([id,t])=>
   filter==="All"||t.status===filter
  );
 
@@ -317,7 +373,7 @@ function renderTeams(){
   div.className="team";
 
   const btn=document.createElement("button");
-  btn.textContent=(t.team||"Unnamed Team")+" — "+(t.status||"Pending");
+  btn.textContent=(t.team||"Unnamed Team")+" | "+(t.status||"Pending");
   btn.onclick=()=>openDetails(id);
 
   div.appendChild(btn);
@@ -325,8 +381,10 @@ function renderTeams(){
  });
 }
 
-// Show full details
+// Full details
 function openDetails(id){
+ if(!isAdmin)return;
+
  const t=currentTeams[id];
  if(!t)return;
 
@@ -336,7 +394,7 @@ function openDetails(id){
 
  const fields=[
   ["Team Name",t.team],
-  ["Captain",t.captain],
+  ["Captain Name",t.captain],
   ["Captain Phone",t.phone],
   ["Player 1",t.players?.[0]],
   ["Player 2",t.players?.[1]],
@@ -347,16 +405,20 @@ function openDetails(id){
   ["Sender Number",t.sender],
   ["Transaction ID",t.trx],
   ["Status",t.status],
-  ["Registration Date",t.createdAt?new Date(t.createdAt).toLocaleString("bn-BD"):"Not available"]
+  ["Registration Date",t.createdAt?new Date(t.createdAt).toLocaleString("en-BD"):"Unavailable"]
  ];
 
  fields.forEach(([label,value])=>{
   const div=document.createElement("div");
   div.className="detail";
+
   const strong=document.createElement("strong");
   strong.textContent=label+": ";
   div.appendChild(strong);
-  div.appendChild(document.createTextNode(value==null?"Not available":String(value)));
+  div.appendChild(document.createTextNode(
+   value==null?"Not available":String(value)
+  ));
+
   content.appendChild(div);
  });
 
@@ -364,12 +426,10 @@ function openDetails(id){
  $("detailsCard").scrollIntoView({behavior:"smooth"});
 }
 
-// Admin actions
-$("confirmBtn").onclick=()=>changeStatus("Confirmed");
-$("rejectBtn").onclick=()=>changeStatus("Rejected");
-
+// Status actions
 async function changeStatus(status){
- if(!selectedId)return;
+ if(!isAdmin||!selectedId)return;
+
  try{
   await update(ref(db,"registrations/"+selectedId),{status});
   alert("Team status updated: "+status);
@@ -378,9 +438,13 @@ async function changeStatus(status){
  }
 }
 
+$("confirmBtn").onclick=()=>changeStatus("Confirmed");
+$("rejectBtn").onclick=()=>changeStatus("Rejected");
+
 $("deleteBtn").onclick=async()=>{
- if(!selectedId)return;
+ if(!isAdmin||!selectedId)return;
  if(!confirm("এই Team Delete করতে চাও?"))return;
+
  try{
   await remove(ref(db,"registrations/"+selectedId));
   hide("detailsCard");
@@ -396,7 +460,6 @@ $("closeDetails").onclick=()=>{
 };
 
 $("filter").onchange=renderTeams;
-$("refreshBtn").onclick=loadTeams;
 
 $("logoutBtn").onclick=async()=>{
  await signOut(auth);
